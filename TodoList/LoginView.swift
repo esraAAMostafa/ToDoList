@@ -8,13 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginView: UIViewController, UITextFieldDelegate {
+
+    @IBOutlet weak var userNameText: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
-
+    @IBAction func loginIsPressed(_ sender: UIButton) {
+        print(userNameText.text ?? "")
+    }
 }
 
