@@ -17,7 +17,20 @@ class LoginView: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func loginIsPressed(_ sender: UIButton) {
-        print(userNameText.text ?? "")
+        if let userName = userNameText.text, userName != "" {
+            let user = User()
+            user.Name = userName
+            DatabaseManager.sharedInstance.add(object: user)
+            print(DatabaseManager.sharedInstance.getData())
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        userNameText.text = ""
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 }
-

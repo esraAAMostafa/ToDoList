@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7wT-k4-AzG">
-                                <rect key="frame" x="51.666666666666657" y="274.66666666666669" width="310.66666666666674" height="39.333333333333314"/>
+                                <rect key="frame" x="51.666666666666657" y="287.66666666666669" width="310.66666666666674" height="26.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -27,11 +27,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zFL-zm-idB">
                                 <rect key="frame" x="51.666666666666657" y="334" width="310.66666666666674" height="88"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="USERNAME" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C67-0P-Qc2">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name" textAlignment="center" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pgF-9O-rPQ">
                                         <rect key="frame" x="0.0" y="0.0" width="310.66666666666669" height="39"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="namePhonePad" enablesReturnKeyAutomatically="YES" textContentType="name"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="namePhonePad" returnKeyType="go" enablesReturnKeyAutomatically="YES" textContentType="name"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="gJ0-dr-wEY"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R38-2t-uI2">
                                         <rect key="frame" x="0.0" y="49" width="310.66666666666669" height="39"/>
@@ -50,7 +53,6 @@
                         <constraints>
                             <constraint firstItem="zFL-zm-idB" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.12" id="3QD-6t-H62"/>
                             <constraint firstItem="7wT-k4-AzG" firstAttribute="centerX" secondItem="zFL-zm-idB" secondAttribute="centerX" id="6sS-vV-QE3"/>
-                            <constraint firstItem="7wT-k4-AzG" firstAttribute="height" secondItem="C67-0P-Qc2" secondAttribute="height" id="BEw-C2-5l2"/>
                             <constraint firstItem="zFL-zm-idB" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="CfE-aw-eqd"/>
                             <constraint firstItem="zFL-zm-idB" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Tde-Fv-Q9X"/>
                             <constraint firstItem="7wT-k4-AzG" firstAttribute="width" secondItem="zFL-zm-idB" secondAttribute="width" id="iXX-5Y-zEG"/>
@@ -60,7 +62,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="userNameText" destination="C67-0P-Qc2" id="TF3-Jq-t4f"/>
+                        <outlet property="userNameText" destination="pgF-9O-rPQ" id="PhZ-WB-0gS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
