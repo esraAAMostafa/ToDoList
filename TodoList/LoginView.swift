@@ -12,17 +12,8 @@ class LoginView: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var userNameText: UITextField!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     @IBAction func loginIsPressed(_ sender: UIButton) {
-        if let userName = userNameText.text, userName != "" {
-            let user = User()
-            user.Name = userName
-            DatabaseManager.sharedInstance.add(object: user)
-            print(DatabaseManager.sharedInstance.getData())
-        }
+        login(userNameText.text)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -32,5 +23,15 @@ class LoginView: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func login(_ userName: String?) { // return user data
+        if let name = userName, userName != "" {
+            let user = User()
+            user.name = name
+            DatabaseManager.sharedInstance.add(object: user)
+            print(DatabaseManager.sharedInstance.getData())
+//            return userdata
+        }
     }
 }

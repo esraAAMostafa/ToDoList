@@ -10,9 +10,11 @@ import Foundation
 import RealmSwift
 
 class User: Object {
-    @objc dynamic var ID = 0
-    @objc dynamic var Name = ""
+    @objc dynamic var id = UUID().uuidString
+    @objc dynamic var name = ""
+    var tasks = List<Task>()
+
     override static func primaryKey() -> String? {
-        return "Name"
+        return "id"
     }
 }
