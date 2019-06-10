@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TaskDetailsView: UIViewController, UITextFieldDelegate {
 
@@ -19,14 +20,12 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var commentsTableView: UITableView!
     
     var currentTask: Task!
-    let comment = Comment()
-    var comments: [Comment]?
-    
+    var comments: Results<Comment>!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        comments = [comment, comment, comment]
-        commentsTableView.reloadData()
+        comments = DatabaseManager.sharedInstance.getComments()
     }
 
     func initView() {
@@ -35,6 +34,7 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
         TaskDateLabel.text = formateDate(currentTask.date, "MMM d yyyy")
         
         setPriority(currentTask.priorityLevel)
+        commentsTableView.reloadData()
     }
     
     func setPriority(_ prioirty: Int) {
@@ -57,6 +57,15 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func addCommentIsPressed(_ sender: UIButton) {
+        addComment(commentTF.text)
+    }
+
+    func addComment(_ text: String?) {
+        if let text = title, text != "" {
+            let comment = Comment()
+            comment.details = text
+            DatabaseManager.sharedInstance.add(object: comment)
+        }
     }
     
     @IBAction func deleteIsPressed(_ sender: UIButton) {
@@ -71,12 +80,12 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
 extension TaskDetailsView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments?.count ?? 0
+        return comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as? CommentCell {
-            cell.configure(comments?[indexPath.row] ?? Comment())
+            cell.configure(comments[indexPath.row])
             return cell
         }
         return UITableViewCell()

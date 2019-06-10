@@ -7,31 +7,29 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TodoListview: UIViewController {
-    
-    var currentUser: User!
-    var currentTask: Task!
+
     @IBOutlet weak var filterIcon: UIImageView!
     @IBOutlet weak var filterTitle: UILabel!
     @IBOutlet weak var userListTitle: UILabel!
     @IBOutlet weak var addTaskPopUpView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
+    var currentUser: User!
+    var currentTask: Task!
     var isFiltered = false
-    let task = Task()
-    var tasks: [Task]?
-    var addTaskView = AddTaskView()
-    var selectedTask: Task!
-    
+    var tasks: Results<Task>?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
+        tasks = DatabaseManager.sharedInstance.getTasks()
     }
 
     func initView() {
         userListTitle.text = "\(currentUser.name)'s Tasks"
-        tasks = [task, task, task, task]
         tableView.reloadData()
     }
 
@@ -39,29 +37,18 @@ class TodoListview: UIViewController {
         self.dismiss(animated: true)
     }
 
-    @IBAction func filterIsPressed(_ sender: UIButton) {
-        isFiltered ? noFilterWithDone() : filterWithDone()
-    }
-
-    @IBAction func addTaskIsPressed(_ sender: UIButton) {
-        addTaskPopUpView.isHidden = false
-    }
-    
-    func filterWithDone() {
-        isFiltered = true
-        filterIcon.image = #imageLiteral(resourceName: "ic-filtered")
-        filterTitle.textColor = #colorLiteral(red: 0.2976242006, green: 0.6489446163, blue: 0.9290004373, alpha: 1)
-        showDoneTasks()
-    }
-    
-    func noFilterWithDone() {
-        isFiltered = false
-        filterIcon.image = #imageLiteral(resourceName: "ic-not-filterd")
-        filterTitle.textColor = #colorLiteral(red: 0.5019147396, green: 0.5019903183, blue: 0.5018982291, alpha: 1)
-    }
-    
-    func showDoneTasks() {
-        print("hay i'm done")
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddTask" {
+            if let nextVC = segue.destination as? AddTaskView {
+                nextVC.delegate = self
+            }
+        }
+        
+        if segue.identifier == "ToTaskDetails" {
+            if let nextVC = segue.destination as? TaskDetailsView {
+                nextVC.currentTask = currentTask
+            }
+        }
     }
 }
 
@@ -72,12 +59,14 @@ extension TodoListview: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as? TaskCell {
-            selectedTask = tasks?[indexPath.row] ?? Task()
-            cell.configure(tasks?[indexPath.row] ?? Task())
-            cell.doneButton.addTarget(self, action: #selector(setDoneState(_:)), for: .touchUpInside)
-            cell.taskTitleButton.addTarget(self, action: #selector(openTask(_:)), for: .touchUpInside)
-            cell.priorityLevelsButtons.forEach { $0.addTarget(self, action: #selector(setPriorityLevel(_:)), for: .touchUpInside)}
-            return cell
+            tasks = DatabaseManager.sharedInstance.getTasks()
+            if let task = tasks?[indexPath.row] {
+                cell.configure(task)
+                cell.doneButton.addTarget(self, action: #selector(setDoneState(_:)), for: .touchUpInside)
+                cell.taskTitleButton.addTarget(self, action: #selector(openTask(_:)), for: .touchUpInside)
+                cell.priorityLevelsButtons.forEach { $0.addTarget(self, action: #selector(setPriorityLevel(_:)), for: .touchUpInside)}
+                return cell
+            }
         }
         return UITableViewCell()
     }
@@ -92,8 +81,12 @@ extension TodoListview {
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
         if let indexPath = indexPath {
-            tasks?[indexPath.row].doneState = !tasks![indexPath.row].doneState
-            tableView.reloadRows(at: [indexPath], with: .none)
+            if let task = tasks?[indexPath.row] {
+                task.doneState = !task.doneState
+                DatabaseManager.sharedInstance.update(object: task)
+//                task.doneState = !task.doneState
+                tableView.reloadRows(at: [indexPath], with: .none)
+            }
         }
         //update done state in this task
     }
@@ -112,31 +105,24 @@ extension TodoListview {
         let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
         if let indexPath = indexPath {
             print("setPriorityLevel")
-            tasks?[indexPath.row].priorityLevel = sender.tag
-            tableView.reloadRows(at: [indexPath], with: .none)
+            if let task = tasks?[indexPath.row] {
+                task.priorityLevel = sender.tag
+                tableView.reloadRows(at: [indexPath], with: .none)
+            }
         }
     }
 }
 
 extension TodoListview: AddTaskDelegate {
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "AddTask" {
-            if let nextVC = segue.destination as? AddTaskView {
-                nextVC.delegate = self
-            }
-        }
 
-        if segue.identifier == "ToTaskDetails" {
-            if let nextVC = segue.destination as? TaskDetailsView {
-                nextVC.currentTask = currentTask
-            }
-        }
+    @IBAction func addTaskIsPressed(_ sender: UIButton) {
+        addTaskPopUpView.isHidden = false
     }
 
     func createTask(_ title: String?) {
         addTask(title: title)
         dismissAddTaskPopup()
+        tableView.reloadData()
     }
     
     func addTask(title: String?) {
@@ -150,6 +136,31 @@ extension TodoListview: AddTaskDelegate {
 
     func dismissAddTaskPopup() {
         addTaskPopUpView.isHidden = true
-        print(DatabaseManager.sharedInstance.getTasks())
+        print(tasks)
+    }
+}
+
+extension TodoListview {
+
+    @IBAction func filterIsPressed(_ sender: UIButton) {
+        isFiltered ? noFilterWithDone() : filterWithDone()
+    }
+    
+    
+    func filterWithDone() {
+        isFiltered = true
+        filterIcon.image = #imageLiteral(resourceName: "ic-filtered")
+        filterTitle.textColor = #colorLiteral(red: 0.2976242006, green: 0.6489446163, blue: 0.9290004373, alpha: 1)
+        showDoneTasks()
+    }
+    
+    func noFilterWithDone() {
+        isFiltered = false
+        filterIcon.image = #imageLiteral(resourceName: "ic-not-filterd")
+        filterTitle.textColor = #colorLiteral(red: 0.5019147396, green: 0.5019903183, blue: 0.5018982291, alpha: 1)
+    }
+    
+    func showDoneTasks() {
+        print("hay i'm done")
     }
 }

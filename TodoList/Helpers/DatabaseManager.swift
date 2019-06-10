@@ -22,32 +22,54 @@ class DatabaseManager {
             print("Fail to initialize realm")
         }
     }
-    
-    func getUsers() -> Results<User> {
-        let results = database!.objects(User.self)
-        return results
-    }
 
-    func getTasks() -> Results<Task> {
-        let results = database!.objects(Task.self)
-        return results
-    }
-
-    func add<T>(object: T) {
+    func add(object: Object) {
         do {
             try database?.write {
-                database?.add(object as! Object, update: true)
+                database?.add(object, update: false)
                 print("Added new Item")
             }
         } catch {
             print("Fail to add Item")
         }
     }
-
-    func delete<T>(object: T) {
+    
+    func update(object: Object) {
         do {
             try database?.write {
-                database?.delete(object as! Object)
+                database?.add(object, update: true)
+                print("Added new Item")
+            }
+        } catch {
+            print("Fail to add Item")
+        }
+    }
+    
+    func getData(type: Object.Type) -> Results<Object> {
+        let results = database!.objects(type)
+        return results
+    }
+
+    
+    func getUsers() -> Results<User> {
+        let results = database!.objects(User.self)
+        return results
+    }
+    
+    func getTasks() -> Results<Task> {
+        let results = database!.objects(Task.self)
+        return results
+    }
+    
+    func getComments() -> Results<Comment> {
+        let results = database!.objects(Comment.self)
+        return results
+    }
+    
+    func delete(object: Object) {
+        do {
+            try database?.write {
+                database?.delete(object)
             }
         } catch {
             print("Fail to delete Item")
