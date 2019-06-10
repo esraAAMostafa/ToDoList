@@ -36,12 +36,4 @@ class TaskCell: UITableViewCell {
             }
         }
     }
-
-    @IBAction func setDoneStateIsPressed(_ sender: UIButton) {
-
-    }
-    @IBAction func openTaskIsPressed(_ sender: UIButton) {
-    }
-    @IBAction func setPriorityLevel(_ sender: UIButton) {
-    }
 }

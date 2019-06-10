@@ -13,7 +13,7 @@ protocol AddTaskDelegate: class {
     func dismissAddTaskPopup()
 }
 
-class AddTaskView: UIViewController {
+class AddTaskView: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var taskTitleText: UITextField!
     @IBOutlet weak var backGroundView: UIView!
@@ -31,5 +31,14 @@ class AddTaskView: UIViewController {
     
     @objc func dismissPopup() {
         delegate.dismissAddTaskPopup()
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = ""
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

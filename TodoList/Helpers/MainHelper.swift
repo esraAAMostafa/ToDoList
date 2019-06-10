@@ -20,4 +20,8 @@ extension NSObject {
         dateFormate.dateFormat = format
         return dateFormate.string(from: date)
     }
+    
+    func durationDate(_ date: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: date, to: Date()).hour ?? 0
+    }
 }
