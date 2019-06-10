@@ -11,9 +11,9 @@ import RealmSwift
 
 class Comment: Object {
     @objc dynamic var id = UUID().uuidString
-    @objc dynamic var text = ""
-    @objc dynamic var data = ""
-    
+    @objc dynamic var details = ""
+    @objc dynamic var date = Date()
+
     override static func primaryKey() -> String? {
         return "id"
     }

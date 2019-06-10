@@ -8,23 +8,28 @@
 
 import UIKit
 
+protocol AddTaskDelegate: class {
+    func createTask(_ title: String?)
+    func dismissAddTaskPopup()
+}
+
 class AddTaskView: UIViewController {
+
+    @IBOutlet weak var taskTitleText: UITextField!
+    @IBOutlet weak var backGroundView: UIView!
+    weak var delegate: AddTaskDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        backGroundView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(dismissPopup)))
+    }
 
-        // Do any additional setup after loading the view.
+    @IBAction func createIsPressed(_ sender: UIButton) {
+        delegate.createTask(taskTitleText.text)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func dismissPopup() {
+        delegate.dismissAddTaskPopup()
     }
-    */
-
 }

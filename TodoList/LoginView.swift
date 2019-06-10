@@ -11,27 +11,36 @@ import UIKit
 class LoginView: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var userNameText: UITextField!
+    var currentUser: User?
 
     @IBAction func loginIsPressed(_ sender: UIButton) {
         login(userNameText.text)
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        userNameText.text = ""
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func login(_ userName: String?) { // return user data
+    func login(_ userName: String?) {
         if let name = userName, userName != "" {
             let user = User()
             user.name = name
+            currentUser = user
             DatabaseManager.sharedInstance.add(object: user)
-            print(DatabaseManager.sharedInstance.getData())
-//            return userdata
+            segue("ToListToDo")
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToListToDo" {
+            if let nextVc = segue.destination as? TodoListview {
+                nextVc.currentUser = currentUser
+            }
+        }
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        userNameText.text = ""
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

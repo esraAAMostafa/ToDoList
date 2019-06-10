@@ -23,11 +23,16 @@ class DatabaseManager {
         }
     }
     
-    func getData() -> Results<User> {
+    func getUsers() -> Results<User> {
         let results = database!.objects(User.self)
         return results
     }
-    
+
+    func getTasks() -> Results<Task> {
+        let results = database!.objects(Task.self)
+        return results
+    }
+
     func add<T>(object: T) {
         do {
             try database?.write {
