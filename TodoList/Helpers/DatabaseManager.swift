@@ -23,15 +23,27 @@ class DatabaseManager {
         }
     }
 
-    func addOrUpdate(object: Object) {
+    func add(object: Object) {
         do {
             try database?.write {
-                database?.add(object, update: true)
+                database?.add(object, update: false)
             }
         } catch {
             print("Fail to add Item")
         }
     }
+    
+    func append(_ object1: Object, to object2: List<Task>) {
+        do {
+            try database?.write {
+                object2.append(object1 as! Task)
+                database?.add(object2, update: true)
+            }
+        } catch {
+            print("Fail to append")
+        }
+    }
+
     
     func getData(type: Object.Type) -> Results<Object> {
         let results = database!.objects(type)
@@ -51,6 +63,11 @@ class DatabaseManager {
     
     func getComments() -> Results<Comment> {
         let results = database!.objects(Comment.self)
+        return results
+    }
+    
+    func filterData(_ object: Object.Type, by quary: String) -> Results<Object> {
+        let results = database!.objects(object.self).filter(quary)
         return results
     }
     

@@ -21,13 +21,13 @@ class Task: Object {
         return "id"
     }
     
-    static func addTask(_ title: String, _ doneState: Bool, _ date: Date, _ priorityLevel: Int, to currentUser: User) {
+    static func addTask(_ title: String, to currentUser: User) {
         let task = Task()
         task.title = title
-        task.doneState = doneState
-        task.date = date
-        task.priorityLevel = priorityLevel
-        currentUser.tasks.append(task)
-        DatabaseManager.sharedInstance.addOrUpdate(object: currentUser)
+        DatabaseManager.sharedInstance.append(task, to: currentUser.tasks)
+    }
+    
+    static func filterByDone(_ currenUser: User) -> Results<Task> {
+        DatabaseManager.sharedInstance.filterData(currenUser.tasks, by: "doneState = true")
     }
 }

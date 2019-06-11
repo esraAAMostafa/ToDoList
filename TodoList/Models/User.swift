@@ -17,10 +17,14 @@ class User: Object {
         return "name"
     }
     
-    static func addUser(_ userName: String) -> User {
-        let user = User()
-        user.name = userName
-        DatabaseManager.sharedInstance.addOrUpdate(object: user)
-        return user
+    static func getUser(_ userName: String) -> User {
+        let users = DatabaseManager.sharedInstance.getUsers()
+        guard let currentUser = users.filter({ $0.name == userName }).first else {
+            let user = User()
+            user.name = userName
+            DatabaseManager.sharedInstance.add(object: user)
+            return user
+        }
+        return currentUser
     }
 }

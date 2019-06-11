@@ -64,7 +64,7 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
         if let text = title, text != "" {
             let comment = Comment()
             comment.details = text
-            DatabaseManager.sharedInstance.addOrUpdate(object: comment)
+            DatabaseManager.sharedInstance.add(object: comment)
         }
     }
     

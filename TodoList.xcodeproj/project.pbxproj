@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		02059CCC22ABF1920046C0B6 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02059CCB22ABF1920046C0B6 /* DatabaseManager.swift */; };
 		02059CCE22ABF5320046C0B6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02059CCD22ABF5320046C0B6 /* User.swift */; };
+		02379BAC22AFD7C40074A0D3 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02379BAB22AFD7C40074A0D3 /* TasksView.swift */; };
 		023984FA22A317D900A2D947 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023984F922A317D900A2D947 /* AppDelegate.swift */; };
 		023984FC22A317D900A2D947 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023984FB22A317D900A2D947 /* LoginView.swift */; };
 		023984FF22A317D900A2D947 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 023984FD22A317D900A2D947 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		02059CCB22ABF1920046C0B6 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		02059CCD22ABF5320046C0B6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		02379BAB22AFD7C40074A0D3 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		023984F622A317D900A2D947 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		023984F922A317D900A2D947 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		023984FB22A317D900A2D947 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				023984FD22A317D900A2D947 /* Main.storyboard */,
 				023984FB22A317D900A2D947 /* LoginView.swift */,
 				02FCDE6E22ADC05C00BABBD2 /* TodoListview.swift */,
+				02379BAB22AFD7C40074A0D3 /* TasksView.swift */,
 				02FCDE7A22ADE41100BABBD2 /* TaskCell.swift */,
 				02FCDE7022ADC07600BABBD2 /* AddTaskView.swift */,
 				02FCDE7222ADC08D00BABBD2 /* TaskDetailsView.swift */,
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02FCDE7922ADDBF000BABBD2 /* MainHelper.swift in Sources */,
+				02379BAC22AFD7C40074A0D3 /* TasksView.swift in Sources */,
 				02FCDE7522ADC21E00BABBD2 /* Task.swift in Sources */,
 				02059CCE22ABF5320046C0B6 /* User.swift in Sources */,
 				02FCDE7322ADC08D00BABBD2 /* TaskDetailsView.swift in Sources */,

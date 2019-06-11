@@ -23,6 +23,6 @@ class Comment: Object {
         comment.details = details
         comment.date = date
         currentTask.comments.append(comment)
-        DatabaseManager.sharedInstance.addOrUpdate(object: currentTask)
+        DatabaseManager.sharedInstance.add(object: currentTask)
     }
 }
