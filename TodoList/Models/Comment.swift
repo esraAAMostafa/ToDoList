@@ -17,4 +17,12 @@ class Comment: Object {
     override static func primaryKey() -> String? {
         return "id"
     }
+
+    static func addComment(_ details: String, _ date: Date, to currentTask: Task) {
+        let comment = Comment()
+        comment.details = details
+        comment.date = date
+        currentTask.comments.append(comment)
+        DatabaseManager.sharedInstance.addOrUpdate(object: currentTask)
+    }
 }

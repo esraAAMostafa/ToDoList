@@ -10,11 +10,17 @@ import Foundation
 import RealmSwift
 
 class User: Object {
-    @objc dynamic var id = UUID().uuidString
     @objc dynamic var name = ""
     var tasks = List<Task>()
 
     override static func primaryKey() -> String? {
-        return "id"
+        return "name"
+    }
+    
+    static func addUser(_ userName: String) -> User {
+        let user = User()
+        user.name = userName
+        DatabaseManager.sharedInstance.addOrUpdate(object: user)
+        return user
     }
 }

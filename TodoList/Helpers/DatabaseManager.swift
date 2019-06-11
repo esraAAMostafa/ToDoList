@@ -23,22 +23,10 @@ class DatabaseManager {
         }
     }
 
-    func add(object: Object) {
-        do {
-            try database?.write {
-                database?.add(object, update: false)
-                print("Added new Item")
-            }
-        } catch {
-            print("Fail to add Item")
-        }
-    }
-    
-    func update(object: Object) {
+    func addOrUpdate(object: Object) {
         do {
             try database?.write {
                 database?.add(object, update: true)
-                print("Added new Item")
             }
         } catch {
             print("Fail to add Item")

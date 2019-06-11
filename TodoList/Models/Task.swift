@@ -20,4 +20,14 @@ class Task: Object {
     override static func primaryKey() -> String? {
         return "id"
     }
+    
+    static func addTask(_ title: String, _ doneState: Bool, _ date: Date, _ priorityLevel: Int, to currentUser: User) {
+        let task = Task()
+        task.title = title
+        task.doneState = doneState
+        task.date = date
+        task.priorityLevel = priorityLevel
+        currentUser.tasks.append(task)
+        DatabaseManager.sharedInstance.addOrUpdate(object: currentUser)
+    }
 }

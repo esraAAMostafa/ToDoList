@@ -83,7 +83,7 @@ extension TodoListview {
         if let indexPath = indexPath {
             if let task = tasks?[indexPath.row] {
                 task.doneState = !task.doneState
-                DatabaseManager.sharedInstance.update(object: task)
+                DatabaseManager.sharedInstance.addOrUpdate(object: task)
 //                task.doneState = !task.doneState
                 tableView.reloadRows(at: [indexPath], with: .none)
             }
@@ -128,9 +128,9 @@ extension TodoListview: AddTaskDelegate {
     func addTask(title: String?) {
         if let title = title, title != "" {
             let task = Task()
-            task.id = currentUser.id
+//            task.id = currentUser.id
             task.title = title
-            DatabaseManager.sharedInstance.add(object: task)
+            DatabaseManager.sharedInstance.addOrUpdate(object: task)
         }
     }
 

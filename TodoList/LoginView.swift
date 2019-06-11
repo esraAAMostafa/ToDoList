@@ -19,10 +19,7 @@ class LoginView: UIViewController, UITextFieldDelegate {
     
     func login(_ userName: String?) {
         if let name = userName, userName != "" {
-            let user = User()
-            user.name = name
-            currentUser = user
-            DatabaseManager.sharedInstance.add(object: user)
+            currentUser = User.addUser(name)
             segue("ToListToDo")
         }
     }
