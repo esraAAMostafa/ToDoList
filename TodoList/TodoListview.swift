@@ -20,6 +20,7 @@ class TodoListview: UIViewController {
     var currentUser: User!
     var currentTask: Task!
     var isFiltered = false
+    var tasks: [Task]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +59,7 @@ extension TodoListview: AddTaskDelegate {
 
     func createTask(_ title: String?) {
         if let title = title, title != "" {
-            Task.addTask(title , to: currentUser)
+            currentUser.addTask(title)
             dismissAddTaskPopup()
             tableView.reloadData()
         }
@@ -87,9 +88,16 @@ extension TodoListview {
         isFiltered = false
         filterIcon.image = #imageLiteral(resourceName: "ic-not-filterd")
         filterTitle.textColor = #colorLiteral(red: 0.5019147396, green: 0.5019903183, blue: 0.5018982291, alpha: 1)
+        showAllTasks()
     }
     
     func showDoneTasks() {
-        print(DatabaseManager.sharedInstance.getTasks())
+        tasks = Task.filterByDone(currentUser)
+        print("all done for \(currentUser.name) is \(Task.filterByDone(currentUser))")
+    }
+    
+    func showAllTasks() {
+        tasks = currentUser.tasksList
+        print("all for \(currentUser.name) is \(currentUser.tasksList)")
     }
 }

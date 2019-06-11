@@ -21,13 +21,7 @@ class Task: Object {
         return "id"
     }
     
-    static func addTask(_ title: String, to currentUser: User) {
-        let task = Task()
-        task.title = title
-        DatabaseManager.sharedInstance.append(task, to: currentUser.tasks)
-    }
-    
-    static func filterByDone(_ currenUser: User) -> Results<Task> {
-        DatabaseManager.sharedInstance.filterData(currenUser.tasks, by: "doneState = true")
+    static func filterByDone(_ currenUser: User) -> [Task] {
+        return currenUser.tasksList.filter({$0.doneState})
     }
 }

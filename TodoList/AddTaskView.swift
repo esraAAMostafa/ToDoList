@@ -27,11 +27,11 @@ class AddTaskView: UIViewController, UITextFieldDelegate {
     private func initView() {
         backGroundView.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(dismissPopup)))
-        taskTitleText.text = ""
     }
 
     @IBAction func createIsPressed(_ sender: UIButton) {
         delegate.createTask(taskTitleText.text)
+        taskTitleText.text = ""
     }
     
     @objc func dismissPopup() {
