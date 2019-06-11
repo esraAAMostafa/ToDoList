@@ -27,4 +27,15 @@ class User: Object {
         }
         return currentUser
     }
+    
+    func addTask(_ title: String) {
+        let task = Task()
+        task.title = title
+        DatabaseManager.sharedInstance.append(task, to: tasks)
+    }
+    
+    var tasksList: [Task] {
+         return Array(tasks)
+    }
+    
 }
