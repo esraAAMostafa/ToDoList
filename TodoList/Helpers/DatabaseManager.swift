@@ -65,18 +65,28 @@ class DatabaseManager {
         }
     }
 
-    func append(_ object1: Object, to object2: List<Task>) {
+    func append(task: Object, to tasks: List<Task>) {
         do {
             try database?.write {
-                object2.append(object1 as! Task)
-                database?.add(object2, update: true)
+                tasks.append(task as! Task)
+                database?.add(tasks, update: true)
+            }
+        } catch {
+            print("Fail to append")
+        }
+    }
+    
+    func append(comment: Object, to comments: List<Comment>) {
+        do {
+            try database?.write {
+                comments.append(comment as! Comment)
+                database?.add(comments, update: true)
             }
         } catch {
             print("Fail to append")
         }
     }
 
-    
     func getData(type: Object.Type) -> Results<Object> {
         let results = database!.objects(type)
         return results

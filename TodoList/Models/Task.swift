@@ -32,4 +32,14 @@ class Task: Object {
     func setPriorityLevel(_ level: Int) {
         DatabaseManager.sharedInstance.editPriority(self, level)
     }
+    
+    func addComment(_ text: String) {
+        let comment = Comment()
+        comment.details = text
+        DatabaseManager.sharedInstance.append(comment: comment, to: comments)
+    }
+    
+    func delete() {
+        DatabaseManager.sharedInstance.delete(object: self)
+    }
 }

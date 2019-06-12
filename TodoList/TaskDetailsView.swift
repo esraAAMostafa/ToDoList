@@ -20,21 +20,26 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var commentsTableView: UITableView!
     
     var currentTask: Task!
-    var comments: Results<Comment>?
+    var comments: [Comment]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        comments = DatabaseManager.sharedInstance.getComments()
     }
 
     func initView() {
-        taskTitle.text = currentTask.title
-        doneStateButton.imageView?.image = currentTask.doneState ? #imageLiteral(resourceName: "ic-done") : #imageLiteral(resourceName: "ic-not-done")
-        TaskDateLabel.text = formateDate(currentTask.date, "MMM d yyyy")
-        
-        setPriority(currentTask.priorityLevel)
+        comments = Array(currentTask.comments)
         commentsTableView.reloadData()
+
+        taskTitle.text = currentTask.title
+        doneStateButton.setImage(currentTask.doneState ? #imageLiteral(resourceName: "ic-done") : #imageLiteral(resourceName: "ic-not-done"), for: .normal)
+        TaskDateLabel.text = formateDate(currentTask.date, "MMM d yyyy")
+        setPriority(currentTask.priorityLevel)
+    }
+    
+    @IBAction func setDoneStateIsPressed(_ sender: UIButton) {
+        currentTask.setDoneState()
+        initView()
     }
     
     func setPriority(_ prioirty: Int) {
@@ -52,28 +57,25 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
         }
     }
 
-    @IBAction func backIsPressed(_ sender: UIButton) {
-        self.dismiss(animated: true)
-    }
-
     @IBAction func addCommentIsPressed(_ sender: UIButton) {
         addComment(commentTF.text)
+        commentTF.text = ""
     }
 
     func addComment(_ text: String?) {
-        if let text = title, text != "" {
-            let comment = Comment()
-            comment.details = text
-            DatabaseManager.sharedInstance.add(object: comment)
+        if let text = text, text != "" {
+            currentTask.addComment(text)
+            initView()
         }
     }
     
     @IBAction func deleteIsPressed(_ sender: UIButton) {
-        DatabaseManager.sharedInstance.delete(object: currentTask)
+        currentTask.delete()
         self.dismiss(animated: true)
     }
-
-    @IBAction func setDoneStateIsPressed(_ sender: UIButton) {
+    
+    @IBAction func backIsPressed(_ sender: UIButton) {
+        self.dismiss(animated: true)
     }
 }
 

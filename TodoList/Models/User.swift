@@ -31,7 +31,7 @@ class User: Object {
     func addTask(_ title: String) {
         let task = Task()
         task.title = title
-        DatabaseManager.sharedInstance.append(task, to: tasks)
+        DatabaseManager.sharedInstance.append(task: task, to: tasks)
     }
     
     var tasksList: [Task] {

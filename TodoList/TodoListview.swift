@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 class TodoListview: UIViewController {
 
@@ -26,11 +25,14 @@ class TodoListview: UIViewController {
         super.viewDidLoad()
         initView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        initView()
+    }
 
     private func initView() {
         tasks = Array(currentUser.tasks)
         userListTitle.text = "\(currentUser.name)'s Tasks"
-        tableView.reloadData()
         tableView.reloadData()
     }
 
@@ -63,7 +65,7 @@ extension TodoListview: AddTaskDelegate {
         if let title = title, title != "" {
             currentUser.addTask(title)
             dismissAddTaskPopup()
-            tableView.reloadData()
+            initView()
         }
     }
 
