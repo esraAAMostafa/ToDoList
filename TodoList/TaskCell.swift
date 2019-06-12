@@ -16,8 +16,8 @@ class TaskCell: UITableViewCell {
     @IBOutlet var priorityLevelsButtons: [UIButton]!
 
     func configure(_ task: Task) {
-        doneButton.imageView?.image = task.doneState ? #imageLiteral(resourceName: "ic-done") : #imageLiteral(resourceName: "ic-not-done")
-        taskTitleButton.titleLabel?.text = task.title
+        doneButton.setImage( task.doneState ? #imageLiteral(resourceName: "ic-done") : #imageLiteral(resourceName: "ic-not-done"), for: .normal)
+        taskTitleButton.setTitle(task.title, for: .normal)
         taskDateText.text = formateDate(task.date, "MMM d yyyy")
         setPriority(task.priorityLevel)
     }
