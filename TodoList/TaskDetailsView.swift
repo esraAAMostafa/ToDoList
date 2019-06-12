@@ -20,7 +20,7 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var commentsTableView: UITableView!
     
     var currentTask: Task!
-    var comments: Results<Comment>!
+    var comments: Results<Comment>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,13 +80,15 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
 extension TaskDetailsView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        return comments?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as? CommentCell {
-            cell.configure(comments[indexPath.row])
-            return cell
+            if let comment = comments?[indexPath.row] {
+                cell.configure(comment)
+                return cell
+            }
         }
         return UITableViewCell()
     }

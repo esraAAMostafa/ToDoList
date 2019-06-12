@@ -36,6 +36,5 @@ class User: Object {
     
     var tasksList: [Task] {
          return Array(tasks)
-    }
-    
+    } 
 }

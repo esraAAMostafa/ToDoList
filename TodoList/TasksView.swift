@@ -91,13 +91,13 @@ import UIKit
 
 extension TodoListview: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentUser.tasks.count
+        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as? TaskCell {
-            if !currentUser.tasks.isEmpty {
-                cell.configure(currentUser.tasks[indexPath.row])
+            if !tasks.isEmpty {
+                cell.configure(tasks[indexPath.row])
                 cell.doneButton.addTarget(self, action: #selector(setDoneState(_:)), for: .touchUpInside)
                 cell.taskTitleButton.addTarget(self, action: #selector(openTask(_:)), for: .touchUpInside)
                 cell.priorityLevelsButtons.forEach { $0.addTarget(self, action: #selector(setPriorityLevel(_:)), for: .touchUpInside)}
@@ -117,34 +117,27 @@ extension TodoListview {
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
         if let indexPath = indexPath {
-//            if let task = tasks?[indexPath.row] {
-//                task.doneState = !task.doneState
-//                DatabaseManager.sharedInstance.addOrUpdate(object: task)
-//                //                task.doneState = !task.doneState
-//                tableView.reloadRows(at: [indexPath], with: .none)
-//            }
+            currentUser.tasks[indexPath.row].setDoneState()
+            tableView.reloadRows(at: [indexPath], with: .none)
+            
         }
-        //update done state in this task
     }
     
     @objc func openTask(_ sender: UIButton) {
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
-//        if let indexPath = indexPath {
-//            currentTask = tasks?[indexPath.row]
-//            segue("ToTaskDetails")
-//        }
+        if let indexPath = indexPath {
+            currentTask = currentUser.tasks[indexPath.row]
+            segue("ToTaskDetails")
+        }
     }
     
     @objc func setPriorityLevel(_ sender: UIButton) {
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
-//        if let indexPath = indexPath {
-//            print("setPriorityLevel")
-//            if let task = tasks?[indexPath.row] {
-//                task.priorityLevel = sender.tag
-//                tableView.reloadRows(at: [indexPath], with: .none)
-//            }
-//        }
+        if let indexPath = indexPath {
+            currentUser.tasks[indexPath.row].setPriorityLevel(sender.tag)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
     }
 }

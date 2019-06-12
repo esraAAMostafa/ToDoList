@@ -33,6 +33,38 @@ class DatabaseManager {
         }
     }
     
+    func update(object: Object) {
+        do {
+            try database?.write {
+                database?.add(object, update: true)
+            }
+        } catch {
+            print("Fail to add Item")
+        }
+    }
+    
+    func editToDone( _ task: Task) {
+        do {
+            try database?.write {
+                task.doneState = !task.doneState
+                database?.add(task, update: true)
+            }
+        } catch {
+            print("Fail to add Item")
+        }
+    }
+
+    func editPriority( _ task: Task, _ priority: Int) {
+        do {
+            try database?.write {
+                task.priorityLevel = priority
+                database?.add(task, update: true)
+            }
+        } catch {
+            print("Fail to add Item")
+        }
+    }
+
     func append(_ object1: Object, to object2: List<Task>) {
         do {
             try database?.write {

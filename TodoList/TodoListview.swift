@@ -28,7 +28,9 @@ class TodoListview: UIViewController {
     }
 
     private func initView() {
+        tasks = Array(currentUser.tasks)
         userListTitle.text = "\(currentUser.name)'s Tasks"
+        tableView.reloadData()
         tableView.reloadData()
     }
 
@@ -74,6 +76,7 @@ extension TodoListview {
 
     @IBAction func filterIsPressed(_ sender: UIButton) {
         isFiltered ? noFilterWithDone() : filterWithDone()
+        tableView.reloadData()
     }
     
     
@@ -97,7 +100,7 @@ extension TodoListview {
     }
     
     func showAllTasks() {
-        tasks = currentUser.tasksList
+        tasks = Array(currentUser.tasks)
         print("all for \(currentUser.name) is \(currentUser.tasksList)")
     }
 }

@@ -24,4 +24,12 @@ class Task: Object {
     static func filterByDone(_ currenUser: User) -> [Task] {
         return currenUser.tasksList.filter({$0.doneState})
     }
+    
+    func setDoneState() {
+        DatabaseManager.sharedInstance.editToDone(self)
+    }
+    
+    func setPriorityLevel(_ level: Int) {
+        DatabaseManager.sharedInstance.editPriority(self, level)
+    }
 }
