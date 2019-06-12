@@ -42,6 +42,11 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
         initView()
     }
     
+    @IBAction func priorityButtonsIsPressed(_ sender: UIButton) {
+        currentTask.setPriorityLevel(sender.tag)
+        initView()
+    }
+    
     func setPriority(_ prioirty: Int) {
         priorityLevelButtons.forEach { button  in
             button.layer.borderWidth = 1

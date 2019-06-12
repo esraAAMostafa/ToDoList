@@ -498,18 +498,27 @@
                                                                 <state key="normal" title="!">
                                                                     <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="priorityButtonsIsPressed:" destination="g82-43-HAs" eventType="touchUpInside" id="0jZ-Ie-zSr"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iz0-Vf-Mn0">
                                                                 <rect key="frame" x="34.333333333333314" y="0.0" width="34.666666666666657" height="25.333333333333332"/>
                                                                 <state key="normal" title="!!">
                                                                     <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="priorityButtonsIsPressed:" destination="g82-43-HAs" eventType="touchUpInside" id="Hrz-xQ-PhN"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vxg-Ii-l9F">
                                                                 <rect key="frame" x="69" y="0.0" width="34.333333333333343" height="25.333333333333332"/>
                                                                 <state key="normal" title="!!!">
                                                                     <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="priorityButtonsIsPressed:" destination="g82-43-HAs" eventType="touchUpInside" id="7XE-bP-gt0"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -744,6 +753,7 @@
                             <constraint firstAttribute="trailing" secondItem="vh8-xC-VYD" secondAttribute="trailing" id="aBN-Pz-tUp"/>
                             <constraint firstItem="JjZ-d4-LHY" firstAttribute="centerX" secondItem="rMB-bj-OZx" secondAttribute="centerX" id="dZP-nt-Bog"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="mO8-jv-6b6"/>
                     </view>
                     <connections>
                         <outlet property="backGroundView" destination="vh8-xC-VYD" id="nB1-UW-W44"/>
