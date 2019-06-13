@@ -17,9 +17,16 @@ class TodoListview: UIViewController {
     
     var currentUser: User!
     var currentTask: Task!
-    var isFiltered = false
     var tasks: [Task]!
     var tasksView: TasksView!
+    
+    var isFiltered = false {
+        didSet {
+            isFiltered ? filterWithDone() : noFilterWithDone()
+            isFiltered ? showDoneTasks() : showAllTasks()
+            tasksView.reloadData()
+        }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         initView()
@@ -31,10 +38,32 @@ class TodoListview: UIViewController {
         tasksView.reloadData()
     }
 
+    @IBAction func filterIsPressed(_ sender: UIButton) {
+        isFiltered = !isFiltered
+    }
+    
+    func filterWithDone() {
+        filterIcon.image = #imageLiteral(resourceName: "ic-filtered")
+        filterTitle.textColor = #colorLiteral(red: 0.2976242006, green: 0.6489446163, blue: 0.9290004373, alpha: 1)
+    }
+    
+    func noFilterWithDone() {
+        filterIcon.image = #imageLiteral(resourceName: "ic-not-filterd")
+        filterTitle.textColor = #colorLiteral(red: 0.5019147396, green: 0.5019903183, blue: 0.5018982291, alpha: 1)
+    }
+    
+    func showDoneTasks() {
+        tasks = currentUser.filterByDoneTasks()
+    }
+    
+    func showAllTasks() {
+        tasks = currentUser.tasksList
+    }
+    
     @IBAction func backIsPressed(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddTask" {
             if let nextVC = segue.destination as? AddTaskView {
@@ -56,14 +85,15 @@ class TodoListview: UIViewController {
             }
         }
     }
+
 }
 
 extension TodoListview: AddTaskDelegate {
-
+    
     @IBAction func addTaskIsPressed(_ sender: UIButton) {
         addTaskPopUpView.isHidden = false
     }
-
+    
     func createTask(_ title: String?) {
         if let title = title, title != "" {
             currentUser.addTask(title)
@@ -71,7 +101,7 @@ extension TodoListview: AddTaskDelegate {
             initView()
         }
     }
-
+    
     func dismissAddTaskPopup() {
         addTaskPopUpView.isHidden = true
     }
@@ -90,36 +120,5 @@ extension TodoListview: TasksViewDelegate {
     
     func setPriorityLevel(indexPath: IndexPath, tag: Int) {
         currentUser.tasksList[indexPath.row].setPriorityLevel(tag)
-    }
-}
-
-extension TodoListview {
-
-    @IBAction func filterIsPressed(_ sender: UIButton) {
-        isFiltered ? noFilterWithDone() : filterWithDone()
-        tasksView.reloadData()
-    }
-    
-    
-    func filterWithDone() {
-        isFiltered = true
-        filterIcon.image = #imageLiteral(resourceName: "ic-filtered")
-        filterTitle.textColor = #colorLiteral(red: 0.2976242006, green: 0.6489446163, blue: 0.9290004373, alpha: 1)
-        showDoneTasks()
-    }
-    
-    func noFilterWithDone() {
-        isFiltered = false
-        filterIcon.image = #imageLiteral(resourceName: "ic-not-filterd")
-        filterTitle.textColor = #colorLiteral(red: 0.5019147396, green: 0.5019903183, blue: 0.5018982291, alpha: 1)
-        showAllTasks()
-    }
-    
-    func showDoneTasks() {
-        tasks = currentUser.filterByDoneTasks()
-    }
-    
-    func showAllTasks() {
-        tasks = currentUser.tasksList
     }
 }
