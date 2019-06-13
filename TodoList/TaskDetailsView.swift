@@ -34,7 +34,7 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
         taskTitle.text = currentTask.title
         doneStateButton.setImage(currentTask.doneState ? #imageLiteral(resourceName: "ic-done") : #imageLiteral(resourceName: "ic-not-done"), for: .normal)
         TaskDateLabel.text = formateDate(currentTask.date, "MMM d yyyy")
-        setPriority(currentTask.priorityLevel)
+        MainHelper.setPriority(currentTask.priorityLevel, for: priorityLevelButtons)
     }
     
     @IBAction func setDoneStateIsPressed(_ sender: UIButton) {
@@ -45,21 +45,6 @@ class TaskDetailsView: UIViewController, UITextFieldDelegate {
     @IBAction func priorityButtonsIsPressed(_ sender: UIButton) {
         currentTask.setPriorityLevel(sender.tag)
         initView()
-    }
-    
-    func setPriority(_ prioirty: Int) {
-        priorityLevelButtons.forEach { button  in
-            button.layer.borderWidth = 1
-            button.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
-            
-            if button.tag == prioirty {
-                button.backgroundColor =  #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
-                button.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
-            } else {
-                button.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                button.setTitleColor(#colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1), for: .normal)
-            }
-        }
     }
 
     @IBAction func addCommentIsPressed(_ sender: UIButton) {

@@ -31,7 +31,6 @@ class TodoListview: UIViewController {
     }
 
     private func initView() {
-        //        tasks = Array(currentUser.tasks)
         tasks = currentUser.tasksList
         userListTitle.text = "\(currentUser.name)'s Tasks"
         tableView.reloadData()
