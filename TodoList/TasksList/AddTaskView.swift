@@ -27,6 +27,7 @@ class AddTaskView: UIViewController, UITextFieldDelegate {
     private func initView() {
         backGroundView.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(dismissPopup)))
+        backGroundView.blurView(.dark)
     }
 
     @IBAction func createIsPressed(_ sender: UIButton) {

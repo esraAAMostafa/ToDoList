@@ -50,3 +50,15 @@ extension NSObject {
         return Calendar.current.dateComponents([.hour], from: date, to: Date()).hour ?? 0
     }
 }
+
+extension UIView {
+    
+    func blurView(_ style: UIBlurEffect.Style) {
+        let blurEffect = UIBlurEffect(style: style)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.alpha = 0.9
+        self.addSubview(blurEffectView)
+    }
+}
