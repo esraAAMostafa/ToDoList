@@ -11,9 +11,7 @@ import UIKit
 class MainHelper {
     static func setPriority(_ prioirty: Int, for buttons: [UIButton]) {
         buttons.forEach { button  in
-            button.layer.borderWidth = 1
-            button.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
-            
+
             if button.tag == prioirty {
                 button.backgroundColor =  #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
                 button.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
@@ -21,6 +19,16 @@ class MainHelper {
                 button.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
                 button.setTitleColor(#colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1), for: .normal)
             }
+        }
+    }
+}
+
+class RoundedCorener: UIButton {
+    @IBInspectable
+    var redious: CGFloat = 0 {
+        didSet {
+            self.clipsToBounds = true
+            self.layer.cornerRadius = redious
         }
     }
 }
