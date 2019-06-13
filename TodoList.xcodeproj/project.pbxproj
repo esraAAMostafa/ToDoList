@@ -62,6 +62,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0206D19B22B218D6009F0024 /* TaskDetails */ = {
+			isa = PBXGroup;
+			children = (
+				02FCDE7022ADC07600BABBD2 /* AddTaskView.swift */,
+				02FCDE7222ADC08D00BABBD2 /* TaskDetailsView.swift */,
+				02FCDE8022AED0AD00BABBD2 /* CommentCell.swift */,
+			);
+			path = TaskDetails;
+			sourceTree = "<group>";
+		};
+		0206D19C22B218F3009F0024 /* TasksList */ = {
+			isa = PBXGroup;
+			children = (
+				02FCDE6E22ADC05C00BABBD2 /* TodoListview.swift */,
+				02379BAB22AFD7C40074A0D3 /* TasksView.swift */,
+				02FCDE7A22ADE41100BABBD2 /* TaskCell.swift */,
+			);
+			path = TasksList;
+			sourceTree = "<group>";
+		};
+		0206D19D22B218FE009F0024 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				023984FB22A317D900A2D947 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		023984ED22A317D800A2D947 = {
 			isa = PBXGroup;
 			children = (
@@ -87,13 +115,9 @@
 				02FCDE6D22ADC00B00BABBD2 /* Helpers */,
 				02FCDE6C22ADC00200BABBD2 /* Models */,
 				023984FD22A317D900A2D947 /* Main.storyboard */,
-				023984FB22A317D900A2D947 /* LoginView.swift */,
-				02FCDE6E22ADC05C00BABBD2 /* TodoListview.swift */,
-				02379BAB22AFD7C40074A0D3 /* TasksView.swift */,
-				02FCDE7A22ADE41100BABBD2 /* TaskCell.swift */,
-				02FCDE7022ADC07600BABBD2 /* AddTaskView.swift */,
-				02FCDE7222ADC08D00BABBD2 /* TaskDetailsView.swift */,
-				02FCDE8022AED0AD00BABBD2 /* CommentCell.swift */,
+				0206D19D22B218FE009F0024 /* Login */,
+				0206D19C22B218F3009F0024 /* TasksList */,
+				0206D19B22B218D6009F0024 /* TaskDetails */,
 				02FCDE6B22ADBFCE00BABBD2 /* supporting files */,
 				0239850522A317DA00A2D947 /* Info.plist */,
 			);
