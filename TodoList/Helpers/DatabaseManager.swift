@@ -39,72 +39,12 @@ class DatabaseManager {
                 database?.add(object, update: true)
             }
         } catch {
-            print("Fail to add Item")
+            print("Fail to update Item")
         }
     }
     
-    func editToDone( _ task: Task) {
-        do {
-            try database?.write {
-                task.doneState = !task.doneState
-                database?.add(task, update: true)
-            }
-        } catch {
-            print("Fail to add Item")
-        }
-    }
-
-    func editPriority( _ task: Task, _ priority: Int) {
-        do {
-            try database?.write {
-                task.priorityLevel = priority
-                database?.add(task, update: true)
-            }
-        } catch {
-            print("Fail to add Item")
-        }
-    }
-
-    func append(task: Object, to tasks: List<Task>) {
-        do {
-            try database?.write {
-                tasks.append(task as! Task)
-                database?.add(tasks, update: true)
-            }
-        } catch {
-            print("Fail to append")
-        }
-    }
-    
-    func append(comment: Object, to comments: List<Comment>) {
-        do {
-            try database?.write {
-                comments.append(comment as! Comment)
-                database?.add(comments, update: true)
-            }
-        } catch {
-            print("Fail to append")
-        }
-    }
-
     func getData(type: Object.Type) -> Results<Object> {
         let results = database!.objects(type)
-        return results
-    }
-
-    
-    func getUsers() -> Results<User> {
-        let results = database!.objects(User.self)
-        return results
-    }
-    
-    func getTasks() -> Results<Task> {
-        let results = database!.objects(Task.self)
-        return results
-    }
-    
-    func getComments() -> Results<Comment> {
-        let results = database!.objects(Comment.self)
         return results
     }
     
@@ -130,6 +70,66 @@ class DatabaseManager {
             }
         } catch {
             print("Fail to delete All Items")
+        }
+    }
+    
+    func append(task: Object, to tasks: List<Task>) {
+        do {
+            try database?.write {
+                tasks.append(task as! Task)
+                database?.add(tasks, update: true)
+            }
+        } catch {
+            print("Fail to append task")
+        }
+    }
+    
+    func append(comment: Object, to comments: List<Comment>) {
+        do {
+            try database?.write {
+                comments.append(comment as! Comment)
+                database?.add(comments, update: true)
+            }
+        } catch {
+            print("Fail to append comment")
+        }
+    }
+
+    func getUsers() -> Results<User> {
+        let results = database!.objects(User.self)
+        return results
+    }
+    
+    func getTasks() -> Results<Task> {
+        let results = database!.objects(Task.self)
+        return results
+    }
+    
+    func getComments() -> Results<Comment> {
+        let results = database!.objects(Comment.self)
+        return results
+    }
+    
+    
+    func editToDone( _ task: Task) {
+        do {
+            try database?.write {
+                task.doneState = !task.doneState
+                database?.add(task, update: true)
+            }
+        } catch {
+            print("Fail to add Item")
+        }
+    }
+    
+    func editPriority( _ task: Task, _ priority: Int) {
+        do {
+            try database?.write {
+                task.priorityLevel = priority
+                database?.add(task, update: true)
+            }
+        } catch {
+            print("Fail to add Item")
         }
     }
 }

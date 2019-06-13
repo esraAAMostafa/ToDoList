@@ -117,7 +117,7 @@ extension TodoListview {
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
         if let indexPath = indexPath {
-            currentUser.tasks[indexPath.row].setDoneState()
+            currentUser.tasksList[indexPath.row].setDoneState()
             tableView.reloadRows(at: [indexPath], with: .none)
             
         }
@@ -127,7 +127,7 @@ extension TodoListview {
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
         if let indexPath = indexPath {
-            currentTask = currentUser.tasks[indexPath.row]
+            currentTask = currentUser.tasksList[indexPath.row]
             segue("ToTaskDetails")
         }
     }
@@ -136,7 +136,7 @@ extension TodoListview {
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: buttonPosition)
         if let indexPath = indexPath {
-            currentUser.tasks[indexPath.row].setPriorityLevel(sender.tag)
+            currentUser.tasksList[indexPath.row].setPriorityLevel(sender.tag)
             tableView.reloadRows(at: [indexPath], with: .none)
         }
     }

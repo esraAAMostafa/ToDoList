@@ -16,7 +16,11 @@ class User: Object {
     override static func primaryKey() -> String? {
         return "name"
     }
-    
+
+    var tasksList: [Task] {
+        return Array(tasks)
+    }
+
     static func getUser(_ userName: String) -> User {
         let users = DatabaseManager.sharedInstance.getUsers()
         guard let currentUser = users.filter({ $0.name == userName }).first else {
@@ -33,8 +37,8 @@ class User: Object {
         task.title = title
         DatabaseManager.sharedInstance.append(task: task, to: tasks)
     }
-    
-    var tasksList: [Task] {
-         return Array(tasks)
-    } 
+
+    func filterByDoneTasks() -> [Task] {
+        return self.tasksList.filter({$0.doneState})
+    }
 }
