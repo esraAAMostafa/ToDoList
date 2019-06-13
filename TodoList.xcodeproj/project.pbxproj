@@ -77,6 +77,7 @@
 				02FCDE6E22ADC05C00BABBD2 /* TodoListview.swift */,
 				02379BAB22AFD7C40074A0D3 /* TasksView.swift */,
 				02FCDE7A22ADE41100BABBD2 /* TaskCell.swift */,
+				02FCDE7022ADC07600BABBD2 /* AddTaskView.swift */,
 			);
 			path = TasksList;
 			sourceTree = "<group>";
@@ -116,7 +117,6 @@
 				023984FD22A317D900A2D947 /* Main.storyboard */,
 				0206D19D22B218FE009F0024 /* Login */,
 				0206D19C22B218F3009F0024 /* TasksList */,
-				02FCDE7022ADC07600BABBD2 /* AddTaskView.swift */,
 				0206D19B22B218D6009F0024 /* TaskDetails */,
 				02FCDE6B22ADBFCE00BABBD2 /* supporting files */,
 				0239850522A317DA00A2D947 /* Info.plist */,
