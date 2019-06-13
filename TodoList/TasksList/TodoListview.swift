@@ -14,18 +14,13 @@ class TodoListview: UIViewController {
     @IBOutlet weak var filterTitle: UILabel!
     @IBOutlet weak var userListTitle: UILabel!
     @IBOutlet weak var addTaskPopUpView: UIView!
-    @IBOutlet weak var tableView: UITableView!
     
     var currentUser: User!
     var currentTask: Task!
     var isFiltered = false
     var tasks: [Task]!
+    var tasksView: TasksView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        initView()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         initView()
     }
@@ -33,7 +28,7 @@ class TodoListview: UIViewController {
     private func initView() {
         tasks = currentUser.tasksList
         userListTitle.text = "\(currentUser.name)'s Tasks"
-        tableView.reloadData()
+        tasksView.reloadData()
     }
 
     @IBAction func backIsPressed(_ sender: UIButton) {
@@ -50,6 +45,14 @@ class TodoListview: UIViewController {
         if segue.identifier == "ToTaskDetails" {
             if let nextVC = segue.destination as? TaskDetailsView {
                 nextVC.currentTask = currentTask
+            }
+        }
+        
+        if segue.identifier == "Tasks" {
+            if let nextVC = segue.destination as? TasksView {
+                tasksView = nextVC
+                nextVC.delegate = self
+                nextVC.toDoListView = self
             }
         }
     }
@@ -74,11 +77,27 @@ extension TodoListview: AddTaskDelegate {
     }
 }
 
+extension TodoListview: TasksViewDelegate {
+    func setDoneState(indexPath: IndexPath) {
+        currentUser.tasksList[indexPath.row].setDoneState()
+    }
+    
+    func openTask(indexPath: IndexPath) {
+        currentTask = currentUser.tasksList[indexPath.row]
+        segue("ToTaskDetails")
+        
+    }
+    
+    func setPriorityLevel(indexPath: IndexPath, tag: Int) {
+        currentUser.tasksList[indexPath.row].setPriorityLevel(tag)
+    }
+}
+
 extension TodoListview {
 
     @IBAction func filterIsPressed(_ sender: UIButton) {
         isFiltered ? noFilterWithDone() : filterWithDone()
-        tableView.reloadData()
+        tasksView.reloadData()
     }
     
     
